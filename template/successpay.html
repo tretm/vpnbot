@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Успешная оплата</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .centered-content {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<style>
+  body {
+	text-align: center;
+	padding: 0px 0;
+	background: #EBF0F5;
+  }
+	h1 {
+	  color: #88B04B;
+	  font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+	  font-weight: 900;
+	  font-size: 40px;
+	  margin-bottom: 10px;
+	}
+	p {
+	  color: #404F5E;
+	  font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+	  font-size:20px;
+	  margin: 0;
+	}
+  i {
+	color: #9ABC66;
+	font-size: 100px;
+	line-height: 125px;
+	margin-left:-15px;
+  }
+  .card {
+	background: white;
+	padding: 60px;
+	border-radius: 4px;
+	box-shadow: 0 2px 3px #C8D0D8;
+	display: inline-block;
+	margin: 0 auto;
+  }
+</style>
+<body>
+	
+	  <div class="card">
+		<div style="border-radius:200px; height:125px; width:200px; background: #F8FAF5; margin:0 auto;">
+			<i class="checkmark">✓</i>
+		</div>
+		<h1>Успешная оплата</h1> 
+		<p>Вы оплатили: {{.Amount}} ₽<p>
+		<p>Ваш баланс: {{.TotalAmount}} ₽<p>
+		<button id="sendButton" type="button" class="btn btn-primary mt-3">Вернуться к боту</button>
+      </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        document.getElementById('sendButton').addEventListener('click', function() {
+            const data = { message: 'Hello, server!' };
+            Telegram.WebApp.close();
+        });
+    </script>
+</body>
+</html>

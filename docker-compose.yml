@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql:8.0
+    container_name: "mysqldbvpn"
+    hostname: "mysqldbvpn"
+    restart: always
+    volumes:
+      - /var/data/mysql/vpngigabot:/var/lib/mysql
+    # env_file:
+    #   - deploy/env/mysql.env
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty123456@ # ${DB_PASSWORD}
+      MYSQL_DATABASE: "vpngigabot" #${DB_NAME}
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_ROOT_PASSWORD
+      interval: 1s
+      timeout: 5s
+      retries: 30
+    ports:
+      - 3306:3306
+    networks:
+      - vpngigabot
+
+  migrate:
+    image: migrate/migrate
+    container_name: "migratevpn"
+    volumes:
+      - ./deploy/migrations:/migrations
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    command: ["-path", "/migrations", "-database",  "mysql://user:password@tcp(mysqldbvpn:3306)/vpngigabot", "up"]
+    networks:
+      - vpngigabot
+
+  bot:
+    build:
+      context: .
+      args:
+        RELEASE: 0.0.1
+        GOOS: linux
+        GOARCH: amd64
+      dockerfile: Dockerfile.bot
+    container_name: "bot"
+    restart: always
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+      migrate:
+        condition: service_started
+    # env_file:
+    #   - deploy/env/mysql.env
+    networks:
+      - vpngigabot
+
+  httpserver:
+    build:
+      context: .
+      args:
+        RELEASE: 0.0.1
+        GOOS: linux
+        GOARCH: amd64
+      dockerfile: Dockerfile.httpserver
+    container_name: "httpserver"
+    restart: always
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+      migrate:
+        condition: service_started
+    # env_file:
+    #   - deploy/env/mysql.env
+    ports:
+      - 9191:9191 #${HTTP_PORT}:${HTTP_PORT}
+    networks:
+      - vpngigabot
+
+
+networks:
+  vpngigabot:
+    external: false

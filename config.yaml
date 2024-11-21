@@ -1,0 +1,74 @@
+bot:
+  botToken: 
+  botPayToken: 
+  serverPath: "http://localhost:9191"
+  reportchanid: -100... # id канала, в который падает лог
+  adminid: 123456 # id администратора
+  linklen: 10
+  defaultdays: 30 # в днях
+  trialperiod: 1 #тоже в днях
+  support: "any_login"
+  payamount:
+    - 10
+    - 300
+    - 400
+    - 500
+    - 600
+    - 700
+    - 1000
+    - 1500
+    - 2000
+  priceonemonth: 200 # сумма в рублях
+  discount: 10 # процент скидки, он же шаг для вычисления следующей скидки
+  periodstext:
+    - "1 месяц"
+    - "2 месяца"
+    - "3 месяца"
+    - "6 месяцев"
+    - "12 месяцев"
+  periodsval:
+    - 1
+    - 2
+    - 3
+    - 6
+    - 12
+ 
+outline:
+  urloutline: ""
+  domenname: ""
+  port: "39012"
+  method: "chacha20-ietf-poly1305"
+  ssconf: ""
+
+vray:
+  urlvray: ""
+  vraylogin: ""
+  vraypassword: ""
+  limitconnection: 1 #Колчество подключений с одного ключа
+ 
+server:
+  port: "9191"
+  timeout: 1s
+  idle_timeout: 10s
+  ttl: 6000s
+  secret: 
+  hiddenRoute: 
+  
+
+storage:
+  host: "127.0.0.1" #  "mysqldbvpn" #"127.0.0.1"
+  port: "3306"
+  database: "vpngigabot"
+  user: 
+  password: 
+  rowslimit: 100 # для детализации трат
+  max_open_conn: 100
+  max_idle_conn: 100
+  conn_max_life: 2m
+
+youmoney:
+  client_id: 
+  redirect_url: 
+  token_ym: 
+  
+

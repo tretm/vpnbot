@@ -1,0 +1,3 @@
+Данные приложения https://yoomoney.ru/myservices/edit?applicationId=333390
+Регистрация приложения https://yoomoney.ru/myservices/new
+HTTP-уведомления  https://yoomoney.ru/transfer/myservices/http-notification?lang=ru 
